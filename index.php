@@ -23,13 +23,13 @@
 	<div>
 		<div>
 <!-- Not sure -->
-			<a href="trunc.php? id=<?= $row['id']?>"><?= $row['title'] ?></a>
+			<a href="trunc.php? commentID=<?= $row['commentID']?>"><?= $row['title'] ?></a>
 		</div>
 		<p> <?= date("F d, Y, g:i a", strtotime($row['date'])); ?></p>
 
 		<p><?= substr($row ['content'],0,200) ?></p>
 		<div id="edit">
-		<a href="update.php?id=<?= $row['id']?>">Edit</a>
+		<a href="update.php?commentID=<?= $row['commentID']?>">Edit</a>
 	</div>
 	</div>
 	<?php endwhile ?>

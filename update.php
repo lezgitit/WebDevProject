@@ -14,7 +14,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 	exit("Access Denied: Username and password required.");
 }
 
-$query = "SELECT * FROM post WHERE id = '$_GET[id]'";
+$query = "SELECT * FROM post WHERE commentID = '$_GET[id]'";
 $statement = $db->prepare($query);
 $statement->execute();  
 
@@ -27,12 +27,12 @@ if(isset($_POST['update']))
 	if((strlen($title) > 0) && (strlen($content) > 0))
 	{
 		$query = "UPDATE post SET title ='$_POST[title]', content = '$_POST[content]'
-		WHERE id = '$_GET[id]' ";  
+		WHERE commentID = '$_GET[id]' ";  
 
 		$statement = $db->prepare($query);
 		$statement->bindValue(':title', $title);
 		$statement->bindValue(':content', $content);
-		$statement->bindValue(':id', $id , PDO::PARAM_INT);
+		$statement->bindValue(':commentID', $id , PDO::PARAM_INT);
 
 		$statement->execute();
 
@@ -50,11 +50,11 @@ if(isset($_POST['delete']))
 	$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-	$query = "DELETE FROM post WHERE id = '$_GET[id]'";  
+	$query = "DELETE FROM post WHERE commentID = '$_GET[id]'";  
 	$statement = $db->prepare($query);
 	$statement->bindValue(':title', $title);
 	$statement->bindValue(':content', $content);
-	$statement->bindValue(':id', $id , PDO::PARAM_INT);
+	$statement->bindValue(':commentID', $id , PDO::PARAM_INT);
 
 	$statement->execute();
 

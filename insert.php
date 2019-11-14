@@ -27,7 +27,7 @@
     if((strlen($title) > 0) && (strlen($content) > 0))
     { 
 
-      $query = "INSERT INTO blog (title, content) VALUES (:title, :content)";
+      $query = "INSERT INTO post (title, content) VALUES (:title, :content)";
       $statement = $db->prepare($query);
 
       $statement->bindValue(':title', $title);
@@ -44,7 +44,7 @@
   }
 
 ?>
-
+<!--this is where the form starts-->
 <!DOCTYPE html>
 <html>
 <head>
