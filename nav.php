@@ -5,5 +5,6 @@
 		<span><a href="insert.php">Post</a></span>
 		<span><a href="signup.php">Sign Up</a></span>
 		<span><a href="login.php">Login</a></span>
+		<span><a href="logout.php">Logout</a></span>
 	</ul>
 </nav>
