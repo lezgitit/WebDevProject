@@ -34,7 +34,7 @@
 		<?php include('nav.php') ?>
 	</div>
 	<div id="edit">
-		<a href="update.php?commentID=<?= $row['commentID']?>">Edit</a>
+		<a href="update.php?id=<?= $row['id']?>">Edit</a>
 	</div>
 	<div>
 		<div>

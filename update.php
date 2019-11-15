@@ -2,8 +2,19 @@
 
 require('authenticate.php');
 
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$query = "SELECT * FROM post WHERE commentID = :id";
+define('ADMIN_LOGIN','wally');
+define('ADMIN_PASSWORD','mypass');
+
+if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
+|| ($_SERVER['PHP_AUTH_USER'] != ADMIN_LOGIN)
+|| ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD))
+{
+	header('HTTP/1.1 401 Unauthorized');
+	header('WWW-Authenticate: Basic realm="Our Blog"');
+	exit("Access Denied: Username and password required.");
+}
+
+$query = "SELECT * FROM post WHERE id = '$_GET[id]'";
 $statement = $db->prepare($query);
 $statement->execute();  
 
@@ -16,12 +27,12 @@ if(isset($_POST['update']))
 	if((strlen($title) > 0) && (strlen($content) > 0))
 	{
 		$query = "UPDATE post SET title ='$_POST[title]', content = '$_POST[content]'
-		WHERE commentID = '$_GET[id]' ";  
+		WHERE id = '$_GET[id]' ";  
 
 		$statement = $db->prepare($query);
 		$statement->bindValue(':title', $title);
 		$statement->bindValue(':content', $content);
-		$statement->bindValue(':commentID', $id , PDO::PARAM_INT);
+		$statement->bindValue(':id', $id , PDO::PARAM_INT);
 
 		$statement->execute();
 
@@ -39,11 +50,11 @@ if(isset($_POST['delete']))
 	$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-	$query = "DELETE FROM post WHERE commentID = '$_GET[id]'";  
+	$query = "DELETE FROM post WHERE id = '$_GET[id]'";  
 	$statement = $db->prepare($query);
 	$statement->bindValue(':title', $title);
 	$statement->bindValue(':content', $content);
-	$statement->bindValue(':commentID', $id , PDO::PARAM_INT);
+	$statement->bindValue(':id', $id , PDO::PARAM_INT);
 
 	$statement->execute();
 

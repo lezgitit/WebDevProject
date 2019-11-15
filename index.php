@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="header">
-		<header>Beauty Forum</header>
+		<header>Beauty Corner</header>
 	</div>
 	<div id="navbar">
 		<?php include('nav.php') ?>
@@ -23,15 +23,13 @@
 	<div>
 		<div>
 <!-- Not sure -->
-<!-- Update to link to show post
- -->			
- 			<h1><?= $row['title'] ?></h1>
+			<a href="trunc.php? id=<?= $row['id']?>"><?= $row['title'] ?></a>
 		</div>
 		<p> <?= date("F d, Y, g:i a", strtotime($row['date'])); ?></p>
 
 		<p><?= substr($row ['content'],0,200) ?></p>
 		<div id="edit">
-		<a href="update.php?commentID=<?= $row['commentID']?>">Edit</a>
+		<a href="update.php?id=<?= $row['id']?>">Edit</a>
 	</div>
 	</div>
 	<?php endwhile ?>
