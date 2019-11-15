@@ -51,10 +51,9 @@ echo '</script>';
   <title></title>
 </head>
 <body>
-
+<header>Beauty Corner</header>
   <form method="post">
   <div class="container">
-    <h1>Register to Endless Escapes</h1>
     <hr>
 
     <label><b>Full Name:</b></label>
@@ -75,7 +74,7 @@ echo '</script>';
     <input type ='hidden' value='Customer' id ='accountType' name='accountType'>
 
     <hr>
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <p>By creating an account you agree to our <a href="https://www.sephora.com/beauty/terms-of-use">Terms & Privacy</a>.</p>
     <input id='submit' type='submit'>
   </div>
 

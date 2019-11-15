@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Blog Error</title>
+	<title>Beauty Error</title>
 </head>
 <body>
 	<h1>Error</h1>
