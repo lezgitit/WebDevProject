@@ -2,7 +2,7 @@
 
 	require('authenticate.php');
 
-	$query = "SELECT * FROM blog WHERE id = '$_GET[id]'";
+	$query = "SELECT * FROM post WHERE id = '$_GET[id]'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 

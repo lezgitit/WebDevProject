@@ -3,19 +3,19 @@
   require('authenticate.php');
 
 //Creates a username wally
-  define('ADMIN_LOGIN','wally');
+  //define('ADMIN_LOGIN','wally');
 //Creates a password mypass
-  define('ADMIN_PASSWORD','mypass');
+  //define('ADMIN_PASSWORD','mypass');
 //If the ussername and/or password input is incorrect
-  if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
-      || ($_SERVER['PHP_AUTH_USER'] != ADMIN_LOGIN)
-      || ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD))
+  //if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
+      //|| ($_SERVER['PHP_AUTH_USER'] != ADMIN_LOGIN)
+      //|| ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD))
 //Not sure where these are linked to
-  {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Basic realm="Our Blog"');
-    exit("Access Denied: Username and password required.");
-  }
+  //{
+    //header('HTTP/1.1 401 Unauthorized');
+    //header('WWW-Authenticate: Basic realm="Our Blog"');
+    //exit("Access Denied: Username and password required.");
+  //}
 
 // If an input is given as well ast title and content
   if($_POST && isset($_POST['title']) && isset($_POST['content'])) 

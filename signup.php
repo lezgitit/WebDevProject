@@ -1,7 +1,7 @@
 <?php
 	require('authenticate.php');
 
-	// If an input is given as well ast title and content
+	// If an input is given
   if($_POST && isset($_POST['fullName']) && isset($_POST['userName']) && isset($_POST['email']) && isset($_POST['password'])) 
   {
 //Sanitize the input to prevent injection
@@ -13,7 +13,7 @@
     if((strlen($fullName) > 0) && (strlen($userName) > 0) && (strlen($email) > 0) && (strlen($password) > 0))
     { 
 
-      $query = "INSERT INTO post (fullName, userName, email, password) VALUES (:fullName, :userName, :email, :password)";
+      $query = "INSERT INTO user (fullName, userName, email, password) VALUES (:fullName, :userName, :email, :password)";
       $statement = $db->prepare($query);
 
       $statement->bindValue(':fullName', $fullName);
@@ -32,16 +32,24 @@
   	}
 ?>
 
+<!--this is where the form starts-->
 <!DOCTYPE html>
 <html>
+<head>
+  <title>New Post</title>
+</head>
 <body>
-
-<h2>Beauty Forum Sign-Up Form</h2>
- <form class="modal-content">
-    <div class="container">
-      <h1>Sign Up</h1>
+  <div>
+    <h1>Blog Post</h1>
+  </div>
+  <div id="navbar">
+    <?php include('nav.php') ?>
+  </div>
+  <div>
+  	 <h2>Beauty Forum Sign-Up Form</h2>
+    	<form method="post" action="signup.php">
       <p>Please fill in this form to create an account.</p>
-      <hr>
+    
       <label for="name"><b>Full Name</b></label>
       <input type="text" placeholder="Enter Full Name" id='fullName' name="fullName" required>
 
@@ -54,12 +62,10 @@
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" id= 'password' name="psw" required>
 
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Sign Up</button>
+        <button type="submit" class="submit">Sign Up</button>
       </div>
     </div>
  </form>
-
+  </div>
 </body>
 </html>

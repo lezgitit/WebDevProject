@@ -2,19 +2,8 @@
 
 require('authenticate.php');
 
-define('ADMIN_LOGIN','wally');
-define('ADMIN_PASSWORD','mypass');
-
-if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
-|| ($_SERVER['PHP_AUTH_USER'] != ADMIN_LOGIN)
-|| ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD))
-{
-	header('HTTP/1.1 401 Unauthorized');
-	header('WWW-Authenticate: Basic realm="Our Blog"');
-	exit("Access Denied: Username and password required.");
-}
-
-$query = "SELECT * FROM post WHERE commentID = '$_GET[id]'";
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$query = "SELECT * FROM post WHERE commentID = :id";
 $statement = $db->prepare($query);
 $statement->execute();  
 

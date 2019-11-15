@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="header">
-		<header>Beauty Corner</header>
+		<header>Beauty Forum</header>
 	</div>
 	<div id="navbar">
 		<?php include('nav.php') ?>
@@ -23,7 +23,9 @@
 	<div>
 		<div>
 <!-- Not sure -->
-			<a href="trunc.php? commentID=<?= $row['commentID']?>"><?= $row['title'] ?></a>
+<!-- Update to link to show post
+ -->			
+ 			<h1><?= $row['title'] ?></h1>
 		</div>
 		<p> <?= date("F d, Y, g:i a", strtotime($row['date'])); ?></p>
 
