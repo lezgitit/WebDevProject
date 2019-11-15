@@ -2,18 +2,6 @@
 
 require('authenticate.php');
 
-define('ADMIN_LOGIN','wally');
-define('ADMIN_PASSWORD','mypass');
-
-if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
-|| ($_SERVER['PHP_AUTH_USER'] != ADMIN_LOGIN)
-|| ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD))
-{
-	header('HTTP/1.1 401 Unauthorized');
-	header('WWW-Authenticate: Basic realm="Our Blog"');
-	exit("Access Denied: Username and password required.");
-}
-
 $query = "SELECT * FROM post WHERE id = '$_GET[id]'";
 $statement = $db->prepare($query);
 $statement->execute();  
@@ -86,7 +74,7 @@ if(!isset($_GET['id']) ||   ($_GET['id']) < 1 || (!is_numeric($_GET['id'])))
 	</div>
 	<div>
 		<form method="post">
-			<h2>Title</h2>
+			<h1>Title</h>
 			<INPUT value= '<?= $row['title']?>' id='title' name='title'>
 			<h2>Content</h2>        
 			<textarea name='content' COLS='90' ROWS='10'><?= $row['content']?></textarea>
