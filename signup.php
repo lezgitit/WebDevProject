@@ -48,39 +48,40 @@ echo '</script>';
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+<title></title>
 </head>
 <body>
 <header>Beauty Corner</header>
-  <form method="post">
-  <div class="container">
-    <hr>
+<form method="post">
+<div class="container">
+<hr>
 
-    <label><b>Full Name:</b></label>
-    <input placeholder= 'Full name' id='fullName' name='fullName' required>
+<label><b>Full Name:</b></label>
+<input placeholder= 'Full name' id='fullName' name='fullName' required>
 
-    <label><b>Username</b></label>
-    <input placeholder="Username" name="userName" id="userName" required>
+<label><b>Username</b></label>
+<input placeholder="Username" name="userName" id="userName" required>
 
-    <label><b>Email</b></label>
-    <input type="email" placeholder="Email" name="email" id="email" required>
+<label><b>Email</b></label>
+<input type="email" placeholder="Email" name="email" id="email" required>
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+<label><b>Password</b></label>
+<input type="password" placeholder="Enter Password" name="password" id="password" required>
 
-    <label><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="password2" id="password2" required>
+<label><b>Repeat Password</b></label>
+<input type="password" placeholder="Repeat Password" name="password2" id="password2" required>
 
-    <input type ='hidden' value='Customer' id ='accountType' name='accountType'>
+<input type ='hidden' value='Customer' id ='accountType' name='accountType'>
 
-    <hr>
-    <p>By creating an account you agree to our <a href="https://www.sephora.com/beauty/terms-of-use">Terms & Privacy</a>.</p>
-    <input id='submit' type='submit'>
-  </div>
+<hr>
+<p>By creating an account you agree to our <a href="https://www.sephora.com/beauty/terms-of-use">Terms & Privacy</a>.</p>
+<input id='submit' type='submit'>
+<button> <a href ="index.php">Back</a></button>
+</div>
 
-  <div class="container signin">
-    <p>Already have an account? <a href="login.php">Sign in</a>.</p>
-  </div>
+<div class="container signin">
+<p>Already have an account? <a href="login.php">Sign in</a>.</p>
+</div>
 </form>
 
 </body>

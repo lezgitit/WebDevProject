@@ -35,6 +35,7 @@
 		<p><?= substr($row ['content'],0,200) ?></p>
 		<div id="edit">
 		<a href="update.php?id=<?= $row['id']?>">Edit</a>
+		<a href ="comment.php">Comment</a>
 	</div>
 	</div>
 	<?php endwhile ?>
@@ -53,6 +54,7 @@
 		<p> <?= date("F d, Y, g:i a", strtotime($row['ddate'])) ?></p>
 
 		<p><?= substr($row ['content'],0,200) ?></p>
+		<a href ="comment.php">Comment</a
 	</div>
 	<?php endwhile ?>
 <?php endif ?>
