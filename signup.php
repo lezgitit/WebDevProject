@@ -9,12 +9,12 @@ $userName = filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_FULL_SPECIAL_CH
 $fullName = filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $accountType = filter_input(INPUT_POST, 'accountType', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$password = $_POST['password'];
+$password2 = $_POST['password2'];
 
 if((strlen($userName) > 0) && (strlen($fullName) > 0) && (strlen($email) > 0) && (strlen($password == $password2) > 0))
 {
-
+$password = password_hash($password, PASSWORD_DEFAULT);
 $query = "INSERT INTO user (userName, fullname, email, accountType, password) VALUES (:userName, :fullName, :email, :accountType, :password)";
 
 $statement = $db->prepare($query);

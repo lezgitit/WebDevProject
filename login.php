@@ -5,33 +5,33 @@ session_start();
 
     if($_POST && isset($_POST['submit']) && isset($_POST['userName']) && isset($_POST['password']))
     {
-        $query = "SELECT * FROM user WHERE userName = '$_POST[userName]' AND password = '$_POST[password]'";
-        $statement = $db->prepare($query);
-        $statement->execute();
-        $Username = filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-      $Password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      
+      $Username = filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      $query = "SELECT * FROM user WHERE userName = :Username";
+      $statement = $db->prepare($query);
+      $statement->bindValue(':Username', $Username);
+      $statement->execute();
+      $row = $statement->fetch();
+      if($statement->RowCount() == 1 && password_verify($_POST['password'], $row['password']))
+      {
 
-        if($statement->RowCount() >= 1)
-        {
-            while($row = $statement->fetch()) 
-            {
-
-                $_SESSION['userID'] =  $row['userID'];
-                $_SESSION['userName'] =  $row['userName'];
-                $_SESSION['fullName'] =  $row['fullName'];
-                $_SESSION['accountType'] = $row['accountType'];
-            }
-            header("refresh:.1; url=index.php");
-            echo '<script language ="javascript">';
-            echo 'alert("Welcome!")'; 
-              echo '</script>';
-        }
-        else
-        {
-            echo '<script language ="javascript">';
-            echo 'alert("Incorrect username or password")'; 
-              echo '</script>';
-        }
+        echo "<h1>---------------</h1>"; 
+        $_SESSION['userID'] =  $row['userID'];
+        $_SESSION['userName'] =  $row['userName'];
+        $_SESSION['fullName'] =  $row['fullName'];
+        $_SESSION['accountType'] = $row['accountType'];
+        
+        header("refresh:.1; url=index.php");
+        echo '<script language ="javascript">';
+        echo 'alert("Welcome!")'; 
+        echo '</script>';
+      }
+      else
+      {
+        echo '<script language ="javascript">';
+        echo 'alert("Incorrect username or password")'; 
+        echo '</script>';     
+      }
     }
 
 
