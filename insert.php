@@ -43,6 +43,7 @@ if($_POST && isset($_POST['title']) && isset($_POST['content']))
 <title>New Post</title>
 </head>
 <body>
+  <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <div>
   <h1>Beauty Post</h1>
 </div>
@@ -55,6 +56,9 @@ if($_POST && isset($_POST['title']) && isset($_POST['content']))
     <INPUT id='title' name='title'>
     <h1>Beauty Content</h1>  
     <textarea name='content' COLS='90' ROWS='10'></textarea>
+    <script type="text/javascript">
+      CKEDITOR.replace('content');
+    </script>
     <INPUT id='submit' type='submit'>
   </form>
 </div>

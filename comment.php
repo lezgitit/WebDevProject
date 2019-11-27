@@ -12,16 +12,16 @@ if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) &&
   $commentContent = filter_input(INPUT_POST, 'commentContent', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $userType = filter_input(INPUT_POST, 'userType', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $query = "INSERT INTO comment (commentTitle, commentContent, userType) VALUES (:commentTitle, :commentContent, :userType)";
-    $statement = $db->prepare($query);
+  $query = "INSERT INTO comment (commentTitle, commentContent, userType) VALUES (:commentTitle, :commentContent, :userType)";
+  $statement = $db->prepare($query);
 
-    $statement->bindValue(':commentTitle', $commentTitle);
-    $statement->bindValue(':commentContent', $commentContent);
-    $statement->bindValue(':userType', $userType);
+  $statement->bindValue(':commentTitle', $commentTitle);
+  $statement->bindValue(':commentContent', $commentContent);
+  $statement->bindValue(':userType', $userType);
 
-    $statement->execute();
-    
-    header("Location:index.php");      
+  $statement->execute();
+  
+  header("Location:index.php");      
             
 }
 
@@ -43,14 +43,15 @@ if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) &&
   <span><a href="insert.php">Post</a></span>
   <span><a href="logout.php">Logout</a></span>
 </div>
+  <?php while($row = $statement->fetch()): ?>
 <div>
   <form method="post" action="comment.php">
-    <h1>Username</h1>
-    <INPUT id='userType' name='userType'>
+    <INPUT type = 'hidden' value = '<?php $row ['username'] ?>' id='userType' name='userType'>
     <textarea name='commentContent' COLS='90' ROWS='10'></textarea>
     <INPUT id='submit' type='submit'>
   </form>
 </div>
+<?php endwhile ?>
 <?php elseif (!isset($_SESSION['userID'])): ?>
   <div id="navbar">
   <span><a href="home.php">Home</a></span>

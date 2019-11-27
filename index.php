@@ -27,15 +27,15 @@ session_start();
 <?php while($row = $statement->fetch()): ?>
 <div>
 	<div>
-		<h2><a href="<?= $row['id']?>"><?= $row['title'] ?></a></h2>
+		<h2><a href="linkToPost.php?id=<?= $row['id']?>"><?= $row['title'] ?></a></h2
 	</div>
 	<p><?= substr($row ['fullName'],0,30)?></p>
 	<p> <?= date("F d, Y, g:i a", strtotime($row['ddate'])) ?></p>
 
-	<p><?= substr($row ['content'],0,200) ?></p>
+	<p><?= html_entity_decode( substr($row ['content'],0,200)) ?></p>
 	<div id="edit">
 	<a href="update.php?id=<?= $row['id']?>">Edit</a>
-	<a href ="comment.php">Comment</a>
+	<!-- <a href ="comment.php">Comment</a> -->
 </div>
 </div>
 <?php endwhile ?>
@@ -48,13 +48,13 @@ session_start();
 <?php while($row = $statement->fetch()): ?>
 <div>
 	<div>
-		<h2><a href="linkToPost.php"><?= $row['title'] ?></a></h2>
+		<h2><a href="linkToPost.php?id=<?= $row['id']?>"><?= $row['title'] ?></a></h2>
 	</div>
 	<p><?= substr($row ['fullName'],0,30)?></p>
 	<p> <?= date("F d, Y, g:i a", strtotime($row['ddate'])) ?></p>
 
 	<p><?= substr($row ['content'],0,200) ?></p>
-	<a href ="comment.php">Comment</a
+	<!-- <a href ="comment.php">Comment</a> -->
 </div>
 <?php endwhile ?>
 <?php endif ?>
