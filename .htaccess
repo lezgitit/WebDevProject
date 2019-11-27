@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^/?update/([0-9]+)/([\w\-\s]+)$ update.php?id=$1&slug=$2 [L]

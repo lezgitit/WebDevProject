@@ -30,25 +30,41 @@ if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) &&
 <!DOCTYPE html>
 <html>
 <head>
-<title>New Post</title>
+<title>Comment Page</title>
 </head>
 <body>
 <div>
-  <h1>Beauty Post</h1>
+  <h1>Leave A Comment</h1>
 </div>
+<?php if(isset($_SESSION['userID'])): ?>
 <div id="navbar">
-  <?php include('nav.php') ?>
+  <span><a href="home.php">Home</a></span>
+  <span><a href="index.php">View Posts</a></span>
+  <span><a href="insert.php">Post</a></span>
+  <span><a href="logout.php">Logout</a></span>
 </div>
 <div>
   <form method="post" action="comment.php">
-    <h1>Beauty Title</h1>
-    <INPUT id='commentTitle' name='commentTitle'>
     <h1>Username</h1>
     <INPUT id='userType' name='userType'>
-    <h1>Beauty Content</h1>  
     <textarea name='commentContent' COLS='90' ROWS='10'></textarea>
     <INPUT id='submit' type='submit'>
   </form>
 </div>
+<?php elseif (!isset($_SESSION['userID'])): ?>
+  <div id="navbar">
+  <span><a href="home.php">Home</a></span>
+  <span><a href="index.php">View Posts</a></span>
+  <span><a href="signup.php">Sign Up</a></span>
+  <span><a href="login.php">Login</a></span>
+</div>
+<div>
+  <form method="post" action="comment.php">
+    <INPUT type = 'hidden' value = "Anonymous" id='userType' name='userType'>
+    <textarea name='commentContent' COLS='90' ROWS='10'></textarea>
+    <INPUT id='submit' type='submit'>
+  </form>
+</div>
+<?php endif ?>
 </body>
 </html>
