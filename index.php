@@ -22,7 +22,9 @@ session_start();
 	<span><a href="home.php">Home</a></span>
 	<span><a href="index.php">View Posts</a></span>
 	<span><a href="insert.php">Post</a></span>
+	<span><a href="users.php">Users</a></span>
 	<span><a href="logout.php">Logout</a></span>
+
 <h1>Hello, <?= $_SESSION['userName'] ?>!</h1>
 <?php while($row = $statement->fetch()): ?>
 <div>
