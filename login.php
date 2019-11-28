@@ -1,3 +1,5 @@
+<?php require("botdetect.php"); ?>
+
 <?php
 
 require('authenticate.php');
@@ -12,7 +14,14 @@ session_start();
     $statement->bindValue(':Username', $Username);
     $statement->execute();
     $row = $statement->fetch();
-    if($statement->RowCount() == 1 && password_verify($_POST['password'], $row['password']))
+
+// if your form postbacks to a separate PHP file, first create the instance
+    $ExampleCaptcha = new Captcha("ExampleCaptcha");
+
+    // validate the Captcha to check we're not dealing with a bot
+    $isHuman = $ExampleCaptcha->Validate();
+
+    if($statement->RowCount() == 1 && password_verify($_POST['password'], $row['password']) && $isHuman)
     {
 
       echo "<h1>---------------</h1>"; 
@@ -29,7 +38,7 @@ session_start();
     else
     {
       echo '<script language ="javascript">';
-      echo 'alert("Incorrect username or password")'; 
+      echo 'alert("Incorrect username/password or captcha")'; 
       echo '</script>';     
     }
   }
@@ -42,6 +51,8 @@ session_start();
 <html>
 <head>
 <title>Login</title>
+<link type="text/css" rel="Stylesheet" 
+    href="<?php echo CaptchaUrls::LayoutStylesheetUrl() ?>" />
 </head>
 <body>
 
@@ -52,6 +63,14 @@ session_start();
 
   <label for="password"><b>Password</b></label>
   <input type="password" placeholder="Enter Password" name="password" required>
+
+  <?php // Adding BotDetect Captcha to the page 
+  $ExampleCaptcha = new Captcha("ExampleCaptcha");
+  $ExampleCaptcha->UserInputID = "CaptchaCode";
+  echo $ExampleCaptcha->Html(); 
+?>
+
+<input name="CaptchaCode" id="CaptchaCode" type="text" />
   <INPUT name='submit' id='submit' type='submit'>
   <button> <a href ="index.php">Back</a></button>
 </div>
