@@ -2,29 +2,27 @@
 
 require('authenticate.php');
 
-$query = "SELECT * FROM post WHERE id = '$_GET[id]' AND slug= '$_GET[slug]'";
+$query = "SELECT * FROM comment WHERE id = '$_GET[commentID]";
 $statement = $db->prepare($query);
 $statement->execute();  
 
 if(isset($_POST['update']))
 {
-$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$commentContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-if((strlen($title) > 0) && (strlen($content) > 0))
+if((strlen($commentContent) > 0))
 {
-	$query = "UPDATE post SET title ='$_POST[title]', content = '$_POST[content]'
-	WHERE id = '$_GET[id]'  ";  
+	$query = "UPDATE commentContent SET commentContent ='$_POST[commentID]'
+	WHERE id = '$_GET[commentID]'  ";  
 
 	$statement = $db->prepare($query);
-	$statement->bindValue(':title', $title);
-	$statement->bindValue(':content', $content);
+	$statement->bindValue(':commentContent', $commentContent);
 	$statement->bindValue(':id', $id , PDO::PARAM_INT);
 
 	$statement->execute();
 
-	header("Location:index.php");
+	header("Location:viewComments.php");
 }
 else
 {
@@ -34,19 +32,17 @@ else
 
 if(isset($_POST['delete']))
 {
-$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$commentContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-$query = "DELETE FROM post WHERE id = '$_GET[id]'";  
+$query = "DELETE FROM comment WHERE id = '$_GET[commentID]'";  
 $statement = $db->prepare($query);
-$statement->bindValue(':title', $title);
-$statement->bindValue(':content', $content);
+$statement->bindValue(':commentContent', $commentContent);
 $statement->bindValue(':id', $id , PDO::PARAM_INT);
 
 $statement->execute();
 
-header("Location:index.php");
+header("Location:viewComments.php");
 }
 
 function call()
@@ -55,7 +51,7 @@ header("Location:index.php");
 exit;
 }
 
-if(!isset($_GET['id']) ||   ($_GET['id']) < 1 || (!is_numeric($_GET['id'])))
+if(!isset($_GET['commentID']) ||   ($_GET['commentID']) < 1 || (!is_numeric($_GET['commentID'])))
 {
 call();
 }
@@ -74,10 +70,8 @@ call();
 </div>
 <div>
 	<form method="post">
-		<h1>Title</h>
-		<INPUT value= '<?= $row['title']?>' id='title' name='title'>
-		<h2>Content</h2>        
-		<textarea name='content' COLS='90' ROWS='10'><?= $row['content']?></textarea>
+		<h1>Edit Comment</h1>        
+		<textarea name='content' COLS='90' ROWS='10'><?= $row['commentContent']?></textarea>
 		<INPUT id='update' type='submit' name='update' value='update'>
 		<INPUT id='submit' name='delete' type='submit' value='delete'>
 	</form>

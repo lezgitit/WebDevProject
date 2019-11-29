@@ -23,6 +23,7 @@ $statement->execute();
 	<h1><?= $row['userType'] ?></h1>
 	<p><?= $row['commentDate'] ?></p>
 	<p><?= $row['commentContent'] ?></p>
+	<a href ="updateComment.php?id=<?=$row['commentID']?>">Comment</a>
 <?php endwhile ?>
 </div>
 </body>
