@@ -3,21 +3,22 @@
 require('authenticate.php');
 
 session_start();
-
 // If an input is given as well ast title and content
-if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) && isset($_POST['userType'])) 
+if($_POST && isset($_POST['commentContent'])) 
 {
   //Sanitize the input to prevent injection
-  $commentTitle = filter_input(INPUT_POST, 'commentTitle', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $commentContent = filter_input(INPUT_POST, 'commentContent', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $userType = filter_input(INPUT_POST, 'userType', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $userID = $_SESSION['userID'];
+  $postID = $_POST['postID'];
 
-  $query = "INSERT INTO comment (commentTitle, commentContent, userType) VALUES (:commentTitle, :commentContent, :userType)";
+  $query = "INSERT INTO comment (commentContent, userType, userID, id) VALUES (:commentContent, :userType, :userID, :postID)";
   $statement = $db->prepare($query);
 
-  $statement->bindValue(':commentTitle', $commentTitle);
   $statement->bindValue(':commentContent', $commentContent);
   $statement->bindValue(':userType', $userType);
+  $statement->bindValue(':userID', $userID);
+  $statement->bindValue(':postID', $postID);
 
   $statement->execute();
   
@@ -30,7 +31,7 @@ if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) &&
 <!DOCTYPE html>
 <html>
 <head>
-<title>Comment Page</title>
+<title>Post A Comment</title>
 </head>
 <body>
 <div>
@@ -43,15 +44,14 @@ if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) &&
   <span><a href="insert.php">Post</a></span>
   <span><a href="logout.php">Logout</a></span>
 </div>
-  <?php while($row = $statement->fetch()): ?>
 <div>
   <form method="post" action="comment.php">
-    <INPUT type = 'hidden' value = '<?php $row ['username'] ?>' id='userType' name='userType'>
+    <INPUT type = 'hidden' value = '<?=$_SESSION['userName']?>' id='userType' name='userType'>
+    <input type="hidden" name="postID" value="<?=$_GET['id']?>">
     <textarea name='commentContent' COLS='90' ROWS='10'></textarea>
     <INPUT id='submit' type='submit'>
   </form>
 </div>
-<?php endwhile ?>
 <?php elseif (!isset($_SESSION['userID'])): ?>
   <div id="navbar">
   <span><a href="home.php">Home</a></span>
@@ -62,6 +62,7 @@ if($_POST && isset($_POST['commentTitle']) && isset($_POST['commentContent']) &&
 <div>
   <form method="post" action="comment.php">
     <INPUT type = 'hidden' value = "Anonymous" id='userType' name='userType'>
+    <input type="hidden" name="postID" value="<?=$_GET['id']?>">
     <textarea name='commentContent' COLS='90' ROWS='10'></textarea>
     <INPUT id='submit' type='submit'>
   </form>

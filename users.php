@@ -1,38 +1,39 @@
 <?php
-
+//Required to authenticate to access database
 require('authenticate.php');
-
-$query = "SELECT * FROM user";
+$query = "SELECT * FROM user ORDER BY userName ASC";
 $statement = $db->prepare($query);
-$statement->execute();  
-
-if(isset($_POST['delete']))
-{
-$useID = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-$query = "DELETE FROM user WHERE userID = '$_GET[userID]'";  
-$statement = $db->prepare($query);
-$statement->bindValue(':userID', $userID , PDO::PARAM_INT);
-
 $statement->execute();
+
+session_start();
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<?php while($row = $statement->fetch()): ?>
-<title>USERS</title>
+<title>Beauty</title>
 </head>
 <body>
-<div>
-	<form method="post">
-	<h1><?= $row['userName'] ?></h1>
-	<p><?= substr($row ['fullName'],0,30)?></p>
-	<p><?= substr($row ['email'],0,50)?></p>
-	<INPUT id='submit' name='delete' type='submit' value='delete'>
-</form>
-<?php endwhile ?>
+<div id="header">
+	<header>Beauty Corner</header>
 </div>
+	<span><a href="home.php">Home</a></span>
+	<span><a href="index.php">View Posts</a></span>
+	<span><a href="insert.php">Post</a></span>
+	<span><a href="users.php">Users</a></span>
+	<span><a href="logout.php">Logout</a></span>
+
+<h1>Hello, ADMIN!</h1>
+<?php while($row = $statement->fetch()): ?>
+<div>
+	<h2><?= substr($row ['fullName'],0,30)?></h2>
+	<p><?= substr($row ['userName'],0,30)?></p>
+	<p><?= substr($row ['email'],0,30)?></p>
+	<div id="edit">
+	<a href="updateUser.php?id=<?= $row['userID']?>">Edit User</a>
+</div>
+</div>
+<?php endwhile ?>
 </body>
 </html>
