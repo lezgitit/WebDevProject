@@ -11,8 +11,7 @@ if(isset($_POST['update']))
 $commentContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-if((strlen($commentContent) > 0))
-{
+
 	$query = "UPDATE commentContent SET commentContent ='$_POST[commentID]'
 	WHERE id = '$_GET[commentID]'  ";  
 
@@ -23,11 +22,7 @@ if((strlen($commentContent) > 0))
 	$statement->execute();
 
 	header("Location:viewComments.php");
-}
-else
-{
-	header("Location:processing.php");
-}
+
 }
 
 if(isset($_POST['delete']))
@@ -62,7 +57,7 @@ call();
 <html>
 <head>
 <?php while($row = $statement->fetch()): ?>
-<title><?= $row['title'] ?></title>
+<title><?= $row['userName'] ?></title>
 </head>
 <body>
 <div id="navbar">
@@ -70,7 +65,7 @@ call();
 </div>
 <div>
 	<form method="post">
-		<h1>Edit Comment</h1>        
+		<h1>Edit Comments</h1>        
 		<textarea name='content' COLS='90' ROWS='10'><?= $row['commentContent']?></textarea>
 		<INPUT id='update' type='submit' name='update' value='update'>
 		<INPUT id='submit' name='delete' type='submit' value='delete'>

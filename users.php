@@ -24,7 +24,7 @@ session_start();
 	<span><a href="users.php">Users</a></span>
 	<span><a href="logout.php">Logout</a></span>
 
-<h1>Hello, ADMIN!</h1>
+<h1>Hello, ADMINISTRATOR!</h1>
 <?php while($row = $statement->fetch()): ?>
 <div>
 	<h2><?= substr($row ['fullName'],0,30)?></h2>
