@@ -2,15 +2,16 @@
 
 require('authenticate.php');
 
-$query = "SELECT * FROM comment WHERE userType = 'Anonymous' ORDER BY commentDate DESC";
+$query = "SELECT * FROM comment WHERE commentID = '$_GET[id]'";
 $statement = $db->prepare($query);
 $statement->execute();  
 
 if(isset($_POST['delete']))
 {
-$commentID = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-$query = "DELETE FROM post WHERE commentID = '$_GET[id]'";  
+$commentID = filter_input(INPUT_POST, 'commentID', FILTER_SANITIZE_NUMBER_INT);
+
+$query = "DELETE FROM comment WHERE commentID = '$_GET[id]'";  
 $statement = $db->prepare($query);
 $statement->bindValue(':commentID', $commentID , PDO::PARAM_INT);
 

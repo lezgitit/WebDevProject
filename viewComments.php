@@ -6,6 +6,11 @@ $query = "SELECT * FROM comment ORDER BY commentDate DESC";
 $statement = $db->prepare($query);
 $statement->execute();  
 
+function anonymous
+{
+	$query = "SELECT * FROM comment WHERE userType = '$GET_[id]'";
+}
+
 ?>
 
 <!DOCTYPE html>

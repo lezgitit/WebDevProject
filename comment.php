@@ -4,7 +4,7 @@ require('authenticate.php');
 
 session_start();
 // If an input is given as well ast title and content
-if($_POST && isset($_POST['commentContent'])) 
+if(isset()) 
 {
   //Sanitize the input to prevent injection
   $commentContent = filter_input(INPUT_POST, 'commentContent', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
