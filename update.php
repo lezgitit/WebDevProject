@@ -75,7 +75,7 @@ call();
 <div>
 	<form method="post">
 		<h1>Title</h>
-		<INPUT value= '<?= $row['title']?>' id='title' name='title'>
+		<p><?= substr($row ['userType'],0,30)?></p>
 		<h2>Content</h2>        
 		<textarea name='content' COLS='90' ROWS='10'><?= $row['content']?></textarea>
 		<INPUT id='update' type='submit' name='update' value='update'>

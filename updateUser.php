@@ -1,6 +1,7 @@
 <?php
 
 require('authenticate.php');
+session_start();
 
 $query = "SELECT * FROM user WHERE id = '$_GET[id]'";
 $statement = $db->prepare($query);

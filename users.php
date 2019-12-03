@@ -31,7 +31,7 @@ session_start();
 	<p><?= substr($row ['userName'],0,30)?></p>
 	<p><?= substr($row ['email'],0,30)?></p>
 	<div id="edit">
-	<a href="updateUser.php?id=<?= $row['userID']?>">Edit User</a>
+	<a href="updateUser.php?id=<?= $row['userID']?> && user=<?= $row['userType']?>">Edit User</a>
 </div>
 </div>
 <?php endwhile ?>

@@ -2,54 +2,10 @@
 
 require('authenticate.php');
 
-$query = "SELECT * FROM comment WHERE id = '$_GET[commentID]";
+$query = "SELECT * FROM comment WHERE commentID = '$_GET[id]' && userType = 'Anonymous'";
 $statement = $db->prepare($query);
 $statement->execute();  
 
-if(isset($_POST['update']))
-{
-$commentContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-
-	$query = "UPDATE commentContent SET commentContent ='$_POST[commentID]'
-	WHERE id = '$_GET[commentID]'  ";  
-
-	$statement = $db->prepare($query);
-	$statement->bindValue(':commentContent', $commentContent);
-	$statement->bindValue(':id', $id , PDO::PARAM_INT);
-
-	$statement->execute();
-
-	header("Location:viewComments.php");
-
-}
-
-if(isset($_POST['delete']))
-{
-$commentContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-$query = "DELETE FROM comment WHERE id = '$_GET[commentID]'";  
-$statement = $db->prepare($query);
-$statement->bindValue(':commentContent', $commentContent);
-$statement->bindValue(':id', $id , PDO::PARAM_INT);
-
-$statement->execute();
-
-header("Location:viewComments.php");
-}
-
-function call()
-{
-header("Location:index.php");
-exit;
-}
-
-if(!isset($_GET['commentID']) ||   ($_GET['commentID']) < 1 || (!is_numeric($_GET['commentID'])))
-{
-call();
-}
 
 ?>
 
@@ -57,7 +13,7 @@ call();
 <html>
 <head>
 <?php while($row = $statement->fetch()): ?>
-<title><?= $row['userName'] ?></title>
+<title><?= $row['userType'] ?></title>
 </head>
 <body>
 <div id="navbar">
@@ -65,7 +21,8 @@ call();
 </div>
 <div>
 	<form method="post">
-		<h1>Edit Comments</h1>        
+		<h1><?= substr($row ['userType'],0,30)?></h>
+		<h2>Content</h2>        
 		<textarea name='content' COLS='90' ROWS='10'><?= $row['commentContent']?></textarea>
 		<INPUT id='update' type='submit' name='update' value='update'>
 		<INPUT id='submit' name='delete' type='submit' value='delete'>
