@@ -6,7 +6,6 @@ $query = "SELECT * FROM comment ORDER BY commentDate DESC";
 $statement = $db->prepare($query);
 $statement->execute();  
 
-
 ?>
 
 <!DOCTYPE html>
